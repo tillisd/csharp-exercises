@@ -1,0 +1,42 @@
+﻿<h1>@ViewBag.title</h1>
+<form action="/Search/Results">
+    <h2>Search by:</h2>
+    <p>
+        @foreach (KeyValuePair<string, string> column in ViewBag.columns)
+        {
+            <span>
+                <input type="radio"
+                       name="searchType"
+                       id="@column.Key"
+                       value="@column.Key"
+                       checked="@column.Key == 'all''" />
+                <label for="@column.Key">@column.Value</label>
+            </span>
+        }
+    </p>
+    <p>
+        <label for="searchTerm">Keyword:</label>
+        <input type="text" name="searchTerm" id="searchTerm" />
+    </p>
+    <input type="submit" value="Search" />
+</form>
+<hr />
+
+@if (ViewBag.items != null)
+{
+
+    <h3>@ViewBag.items.Count Result(s)</h3>
+    <table>
+        @for (int i = 0; i < ViewBag.items.Count; i++)
+        {
+            @foreach (KeyValuePair<string, string> column in @ViewBag.items[i])
+            {
+                <tr>
+                    <td>
+                        @column.Key : @column.Value
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
